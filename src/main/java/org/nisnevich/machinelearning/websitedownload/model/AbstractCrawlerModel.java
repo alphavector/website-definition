@@ -27,6 +27,7 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
         }
         // Only accept the url if it is in the basic domain
         return href.startsWith(referringPage.getWebURL().getURL());
+
         // For debugging
 //        if (href.startsWith(referringPage.getWebURL().getURL())) {
 //            System.out.println("Good url: " + href);
