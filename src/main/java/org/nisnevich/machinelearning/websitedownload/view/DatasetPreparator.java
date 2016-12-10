@@ -22,11 +22,18 @@ public class DatasetPreparator {
 
     public List<String> getUrls() {
         List<String> urlList = new ArrayList<String>();
-        // read url list here
+        // TODO read url list here
 
         return urlList;
     }
 
+    /**
+     * Writes data (content of pages and links between pages) to specified file.
+     * The finish point of this program.
+     * @param pageContentList list of page contents
+     * @param linksMap map of links between pages
+     * @throws IOException
+     */
     public void saveData(List<Pair<WebURL, String>> pageContentList, Map<WebURL, List<WebURL>> linksMap)
             throws IOException {
         StringBuilder stringBuilder = new StringBuilder();

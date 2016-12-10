@@ -9,6 +9,7 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 
 /**
+ * TODO write tests
  * Utility to read and write files as fast as possible.
  * @author Nisnevich Arseniy
  * @version 1.0 (10.12.2016)
