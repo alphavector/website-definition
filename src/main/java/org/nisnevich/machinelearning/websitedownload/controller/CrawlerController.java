@@ -6,6 +6,7 @@ import edu.uci.ics.crawler4j.fetcher.PageFetcher;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import org.nisnevich.machinelearning.websitedownload.model.FullTextCrawlerModel;
+import org.nisnevich.machinelearning.websitedownload.view.DatasetPreparator;
 
 
 /**
