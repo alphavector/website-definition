@@ -9,7 +9,6 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 
 /**
- * TODO write tests
  * Utility to read and write files as fast as possible.
  * @author Nisnevich Arseniy
  * @version 1.0 (10.12.2016)
@@ -23,22 +22,16 @@ public class FastFileSystemUtil {
     public static void writeFile(String fileName, String content) throws IOException {
         CharBuffer stringBuff = CharBuffer.wrap(content.toCharArray());
 
-        // new file, get its channel
         File f = new File(fileName);
         FileChannel fch = new FileOutputStream(f).getChannel();
 
         ByteBuffer buff = ByteBuffer.allocate(512);
-        utf8Enc.encode(stringBuff, buff, false); // write string butes to buffer
+        utf8Enc.encode(stringBuff, buff, false);
 
-        // put some nums to buffer
-        buff.putInt(1111);
-        buff.putDouble(2.3);
-        buff.limit(buff.position()); // cut buffer
+        buff.limit(buff.position());
         buff.rewind(); // set buffer's position to 0
 
-        // write to channel
         int writed = fch.write(buff);
-//        System.out.println(writed + " byted writed.");
         fch.close();
     }
 
@@ -53,7 +46,6 @@ public class FastFileSystemUtil {
         buffStr.rewind();
         buffNums.rewind();
         CharBuffer chBuff = utf8Dec.decode(buffStr);
-//        System.out.printf("Nums: %d, %f\n", buffNums.getInt(), buffNums.getDouble()); // get nums from buffer
         return chBuff.toString();
     }
 }
