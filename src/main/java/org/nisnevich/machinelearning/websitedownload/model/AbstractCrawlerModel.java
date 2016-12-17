@@ -25,7 +25,7 @@ import static org.nisnevich.machinelearning.websitedownload.controller.CrawlerCo
  */
 public abstract class AbstractCrawlerModel extends WebCrawler {
     private static final Logger logger = LoggerFactory.getLogger(AbstractCrawlerModel.class);
-    private static final Logger urlFilterLogger = LoggerFactory.getLogger("file_urlfilter");
+    private static final Logger filterLogger = LoggerFactory.getLogger("file_filter");
 
     // List of internet file extensions: https://www.file-extensions.org/filetype/extension/name/internet-related-files
     private static final Pattern VALID_PAGE_EXTENSIONS = Pattern.compile(
@@ -47,11 +47,11 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
         // Ignore the url if it IS NOT in the basic domain
         if (!VALID_PAGE_EXTENSIONS.matcher(webURL.getPath()).matches()
                 || !webURL.getDomain().equals(referringPage.getWebURL().getDomain())) {
-            urlFilterLogger.info(String.format("[%s] - REFUSED - %s",
+            filterLogger.info(String.format("[%s] - REFUSED - %s",
                     referringPage.getWebURL().getURL(), webURL.getURL()));
             return false;
         }
-        urlFilterLogger.info(String.format("[%s] - ALLOWED - %s",
+        filterLogger.info(String.format("[%s] - ALLOWED - %s",
                 referringPage.getWebURL().getURL(), webURL.getURL()));
         List<WebURL> visitedURLs = linksMap.get(referringPage.getWebURL());
         if (visitedURLs == null) {
@@ -78,9 +78,8 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
     @Override
     public void visit(Page page) {
         logger.info("Visiting " + page.getWebURL().getURL());
-        if (! page.getContentType().contains("text/html")) {
-            logger.info(String.format("A page of wrong content type caught before parsing. Content-type: %s. Url: %s",
-                    page.getContentType(), page.getWebURL().getURL()));
+        if (!onPageVisited(page)) {
+            return;
         }
 
         String folderName = page.getWebURL().getDomain();
@@ -92,8 +91,7 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
             String pageCharset = page.getContentCharset();
             Document doc = Jsoup.parse(pageFile, pageCharset);
 
-            if (!shouldContinueVisiting(page, doc)) {
-//                CrawlerController.addBadUrl(page.getWebURL());
+            if (!onPageParsed(page.getWebURL(), doc)) {
                 return;
             }
             parsePage(page, doc);
@@ -110,7 +108,9 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
         return Collections.unmodifiableMap(linksMap);
     }
 
-    protected abstract boolean shouldContinueVisiting(Page page, Document doc);
+    protected abstract boolean onPageVisited(Page page);
+
+    protected abstract boolean onPageParsed(WebURL url, Document doc);
 
     protected abstract void parsePage(Page page, Document doc);
 }

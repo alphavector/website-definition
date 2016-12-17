@@ -8,7 +8,7 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 import org.nisnevich.machinelearning.websitedownload.model.AbstractCrawlerModel;
-import org.nisnevich.machinelearning.websitedownload.model.impl.FullTextCrawlerModel;
+import org.nisnevich.machinelearning.websitedownload.model.impl.FullText_RuEn_NoTrash_CrawlerModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +26,7 @@ public class CrawlerController {
     // if crawler should follow redirects on pages
     private static final boolean IS_FOLLOW_REDIRECTS_ENABLED = true;
     // the maximum crawl depth (-1 for unlimited depth)
-    private static final int MAX_DEPTH_OF_CRAWLING = 1;
+    private static final int MAX_DEPTH_OF_CRAWLING = 0;
     // delay between different requests
     private static final int REQUEST_DELAY = 300;
     // the number of concurrent threads that should be initiated for crawling
@@ -51,7 +51,7 @@ public class CrawlerController {
 
     // --- PROGRAM SETTINGS
     // the crawler model which specifies how to parse websites
-    private static final Class<FullTextCrawlerModel> CRAWLER_MODEL_CLASS = FullTextCrawlerModel.class;
+    private static final Class<FullText_RuEn_NoTrash_CrawlerModel> CRAWLER_MODEL_CLASS = FullText_RuEn_NoTrash_CrawlerModel.class;
     // the maximal count of VALID links to visit per page
     public static final int MAX_LINKS_TO_VISIT_PER_PAGE = 50;
     // id of currently running process (used as names for directories when saving sites cache or )
