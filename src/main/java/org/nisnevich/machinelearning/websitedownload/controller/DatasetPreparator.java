@@ -1,7 +1,6 @@
 package org.nisnevich.machinelearning.websitedownload.controller;
 
 import edu.uci.ics.crawler4j.url.WebURL;
-import javafx.util.Pair;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.nisnevich.machinelearning.websitedownload.controller.CrawlerController.FILE_INPUT;
-import static org.nisnevich.machinelearning.websitedownload.controller.CrawlerController.FILE_PAGE_CONTENT;
-import static org.nisnevich.machinelearning.websitedownload.controller.CrawlerController.FILE_PAGE_LINKS;
+import static org.nisnevich.machinelearning.websitedownload.controller.CrawlerController.*;
 
 /**
  * @author Nisnevich Arseniy
@@ -46,16 +43,16 @@ public class DatasetPreparator {
     /**
      * Writes data (content of pages and links between pages) to specified file.
      * The finish point of this program.
-     * @param pageContentList list of page contents
+     * @param pageContentMap list of page contents
      * @param linksMap map of links between pages
      * @throws IOException
      */
-    public void saveData(List<Pair<WebURL, String>> pageContentList, Map<WebURL, List<WebURL>> linksMap)
+    public void saveData(Map<String, String> pageContentMap, Map<String, List<WebURL>> linksMap)
             throws IOException {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (Pair<WebURL, String> urlContentPair : pageContentList) {
-            String pageUrl = urlContentPair.getKey().getURL();
+        for (Map.Entry<String, String> urlContentPair : pageContentMap.entrySet()) {
+            String pageUrl = urlContentPair.getKey();
             String pageContent = urlContentPair.getValue();
             stringBuilder.append(pageUrl).append(SEPARATOR_URL_CONTENT).append(pageContent).append("\n");
         }
@@ -63,8 +60,8 @@ public class DatasetPreparator {
         FileUtils.writeByteArrayToFile(new File(FILE_PAGE_CONTENT), stringBuilder.toString().getBytes());
 
         stringBuilder = new StringBuilder();
-        for (Map.Entry<WebURL, List<WebURL>> entry : linksMap.entrySet()) {
-            String pageUrl = entry.getKey().getURL();
+        for (Map.Entry<String, List<WebURL>> entry : linksMap.entrySet()) {
+            String pageUrl = entry.getKey();
             stringBuilder.append(pageUrl).append(SEPARATOR_URL_CONTENT);
 
             List<WebURL> pageLinks = entry.getValue();

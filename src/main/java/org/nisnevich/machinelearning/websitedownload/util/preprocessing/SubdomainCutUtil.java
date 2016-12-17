@@ -1,4 +1,4 @@
-package org.nisnevich.machinelearning.websitedownload.util;
+package org.nisnevich.machinelearning.websitedownload.util.preprocessing;
 
 import edu.uci.ics.crawler4j.url.WebURL;
 

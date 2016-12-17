@@ -1,7 +1,6 @@
 package org.nisnevich.machinelearning.websitedownload.model.impl;
 
 import edu.uci.ics.crawler4j.crawler.Page;
-import javafx.util.Pair;
 import org.jsoup.nodes.Document;
 
 /**
@@ -19,6 +18,6 @@ public class FullText_RuEn_NoTrash_CrawlerModel extends FullTextCrawlerModel {
         String content = contentBuilder
                 .replaceAll(ALLOWED_CONTENT_REGEX, "");
 
-        pageContentList.add(new Pair<>(page.getWebURL(), content));
+        pageContentMap.put(page.getWebURL().getURL(), content);
     }
 }

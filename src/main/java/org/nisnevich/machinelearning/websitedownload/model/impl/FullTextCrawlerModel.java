@@ -2,7 +2,6 @@ package org.nisnevich.machinelearning.websitedownload.model.impl;
 
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.url.WebURL;
-import javafx.util.Pair;
 import org.jsoup.nodes.Document;
 import org.nisnevich.machinelearning.websitedownload.model.AbstractCrawlerModel;
 import org.slf4j.Logger;
@@ -23,7 +22,7 @@ public class FullTextCrawlerModel extends AbstractCrawlerModel {
         String contentBuilder = doc.select("meta[name=keywords]").attr("content") +
                 " " + doc.body().text();
         
-        pageContentList.add(new Pair<>(page.getWebURL(), contentBuilder));
+        pageContentMap.put(page.getWebURL().getURL(), contentBuilder);
     }
 
     protected boolean onPageVisited(Page page) {

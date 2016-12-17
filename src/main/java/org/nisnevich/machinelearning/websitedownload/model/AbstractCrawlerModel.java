@@ -3,7 +3,6 @@ package org.nisnevich.machinelearning.websitedownload.model;
 import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.url.WebURL;
-import javafx.util.Pair;
 import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,8 +31,8 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
             ".*" +
                     "(\\.(htm|html|jsp|php|asp|xml|xhtml|shtml|cgi))" +
                     "|([^.]+)$");
-    private static Map<WebURL, List<WebURL>> linksMap = new HashMap<>();
-    protected static List<Pair<WebURL, String>> pageContentList = new ArrayList<>();
+    private static Map<String, List<WebURL>> linksMap = new HashMap<>();
+    protected static Map<String, String> pageContentMap = new HashMap<>();
 
     /**
      * You should implement this function to specify whether the given url
@@ -57,7 +56,7 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
         if (visitedURLs == null) {
             List<WebURL> urlList = new ArrayList<>();
             urlList.add(webURL);
-            linksMap.put(referringPage.getWebURL(), urlList);
+            linksMap.put(referringPage.getWebURL().getURL(), urlList);
         } else {
             if (visitedURLs.size() < CrawlerController.MAX_LINKS_TO_VISIT_PER_PAGE) {
                 List<WebURL> urlList = linksMap.get(referringPage.getWebURL());
@@ -100,11 +99,11 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
         }
     }
 
-    public static List<Pair<WebURL, String>> getPageContentList() {
-        return Collections.unmodifiableList(pageContentList);
+    public static Map<String, String> getPageContentMap() {
+        return Collections.unmodifiableMap(pageContentMap);
     }
 
-    public static Map<WebURL, List<WebURL>> getLinksMap() {
+    public static Map<String, List<WebURL>> getLinksMap() {
         return Collections.unmodifiableMap(linksMap);
     }
 

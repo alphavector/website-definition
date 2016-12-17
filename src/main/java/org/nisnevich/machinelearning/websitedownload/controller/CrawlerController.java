@@ -26,9 +26,9 @@ public class CrawlerController {
     // if crawler should follow redirects on pages
     private static final boolean IS_FOLLOW_REDIRECTS_ENABLED = true;
     // the maximum crawl depth (-1 for unlimited depth)
-    private static final int MAX_DEPTH_OF_CRAWLING = 0;
+    private static final int MAX_DEPTH_OF_CRAWLING = 1;
     // delay between different requests
-    private static final int REQUEST_DELAY = 300;
+    private static final int REQUEST_DELAY = 500;
     // the number of concurrent threads that should be initiated for crawling
     private static final int CRAWLERS_NUMBER = 1;
     // the maximum number of pages to crawl (-1 for unlimited number of pages)
@@ -120,7 +120,7 @@ public class CrawlerController {
         controller.start(CRAWLER_MODEL_CLASS, CRAWLERS_NUMBER);
 
         datasetPreparator.saveData(
-                AbstractCrawlerModel.getPageContentList(),
+                AbstractCrawlerModel.getPageContentMap(),
                 AbstractCrawlerModel.getLinksMap());
     }
 
