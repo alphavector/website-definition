@@ -15,8 +15,8 @@ public class FullText_RuEn_NoTrash_CrawlerModel extends FullTextCrawlerModel {
         String contentBuilder = doc.select("meta[name=keywords]").attr("content") +
                 " " +
                 doc.body().text();
-        String content = contentBuilder
-                .replaceAll(ALLOWED_CONTENT_REGEX, "");
+
+        String content = contentBuilder.replaceAll("\n", " ").replaceAll(ALLOWED_CONTENT_REGEX, "");
 
         pageContentMap.put(page.getWebURL().getURL(), content);
     }
