@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class WebCombinerUtil {
 
-    private static final String INPUT_CRAWLER_ID = "1481986676099";
+    private static final String INPUT_CRAWLER_ID = "1482102449780";
     private static final String FILE_PAGE_CONTENT = "storage/output/" + INPUT_CRAWLER_ID + "/%scontent.data";
     private static final String FILE_PAGE_LINKS = "storage/output/" + INPUT_CRAWLER_ID + "/%slinks.data";
     private static final String FILE_URL_MAPPING = "storage/output/" + INPUT_CRAWLER_ID + "/%smapping.data";

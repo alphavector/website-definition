@@ -100,11 +100,11 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
     }
 
     public static Map<String, String> getPageContentMap() {
-        return Collections.unmodifiableMap(pageContentMap);
+        return pageContentMap;
     }
 
     public static Map<String, List<WebURL>> getLinksMap() {
-        return Collections.unmodifiableMap(linksMap);
+        return linksMap;
     }
 
     protected abstract boolean onPageVisited(Page page);
