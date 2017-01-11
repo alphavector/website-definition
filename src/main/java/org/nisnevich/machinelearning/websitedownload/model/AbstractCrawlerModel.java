@@ -52,14 +52,14 @@ public abstract class AbstractCrawlerModel extends WebCrawler {
         }
         filterLogger.info(String.format("[%s] - ALLOWED - %s",
                 referringPage.getWebURL().getURL(), webURL.getURL()));
-        List<WebURL> visitedURLs = linksMap.get(referringPage.getWebURL());
+        List<WebURL> visitedURLs = linksMap.get(referringPage.getWebURL().toString());
         if (visitedURLs == null) {
             List<WebURL> urlList = new ArrayList<>();
             urlList.add(webURL);
             linksMap.put(referringPage.getWebURL().getURL(), urlList);
         } else {
             if (visitedURLs.size() < CrawlerController.MAX_LINKS_TO_VISIT_PER_PAGE) {
-                List<WebURL> urlList = linksMap.get(referringPage.getWebURL());
+                List<WebURL> urlList = linksMap.get(referringPage.getWebURL().toString());
                 if (!urlList.contains(referringPage.getWebURL())) {
                     urlList.add(webURL);
                 }
