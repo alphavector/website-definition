@@ -4,7 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>nisnevich.machinelearning</groupId>
     <artifactId>website-download</artifactId>
+    <version>1.0</version>
+
     <build>
         <plugins>
             <plugin>
@@ -17,13 +20,6 @@
             </plugin>
         </plugins>
     </build>
-
-
-    <parent>
-        <artifactId>machinelearning</artifactId>
-        <groupId>org.nisnevich</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
 
     <dependencies>
         <dependency>
