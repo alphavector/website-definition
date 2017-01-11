@@ -49,15 +49,19 @@ public class DatasetPreparator {
      */
     public void saveData(Map<String, String> pageContentMap, Map<String, List<WebURL>> linksMap)
             throws IOException {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder;
+
+        File data = new File(FILE_PAGE_CONTENT);
 
         for (Map.Entry<String, String> urlContentPair : pageContentMap.entrySet()) {
             String pageUrl = urlContentPair.getKey();
             String pageContent = urlContentPair.getValue();
-            stringBuilder.append(pageUrl).append(SEPARATOR_URL_CONTENT).append(pageContent).append("\n");
+        //    stringBuilder.append(pageUrl).append(SEPARATOR_URL_CONTENT).append(pageContent).append("\n");
+            FileUtils.writeByteArrayToFile(data, pageUrl.concat(SEPARATOR_URL_CONTENT).concat(pageContent).concat("\n").getBytes(), true);
         }
 
-        FileUtils.writeByteArrayToFile(new File(FILE_PAGE_CONTENT), stringBuilder.toString().getBytes());
+       // FileUtils.writeByteArrayToFile(new File(FILE_PAGE_CONTENT), stringBuilder.toString().getBytes());
+
 
         stringBuilder = new StringBuilder();
         for (Map.Entry<String, List<WebURL>> entry : linksMap.entrySet()) {
